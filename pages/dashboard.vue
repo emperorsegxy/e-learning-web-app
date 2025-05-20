@@ -1,9 +1,11 @@
 <script setup lang="ts">
-
+const user = useCookie<any>('user')
 </script>
 
 <template>
-  <div>Dashboard for Creators</div>
+  <div>
+    <h4>Welcome, {{user?.firstName}}</h4>
+  </div>
 </template>
 
 <style scoped lang="scss">

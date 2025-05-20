@@ -39,16 +39,17 @@ const loginPayload = ref<LoginPayload>({
 const {$fetch} = useNuxtApp()
 const toast = useToast()
 const token = useCookie('token')
+const userCookie = useCookie('user')
 
 const onSubmit = async (): Promise<void> => {
-  console.log(loginPayload.value)
   try {
     const res = await $fetch('/login', {
       method: 'POST',
       body: loginPayload.value,
     })
-    console.log(res, 'response');
-    token.value = res.token
+    const { token: $token, ...user } = res
+    token.value = $token
+    userCookie.value = user
     toast.add({title: 'Successfully logged in!'})
     navigateTo('/dashboard')
   } catch (e: any) {
