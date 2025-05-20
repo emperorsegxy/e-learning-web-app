@@ -37,6 +37,7 @@ const loginPayload = ref<LoginPayload>({
 })
 
 const {$fetch} = useNuxtApp()
+const toast = useToast()
 const token = useCookie('token')
 
 const onSubmit = async (): Promise<void> => {
@@ -48,9 +49,11 @@ const onSubmit = async (): Promise<void> => {
     })
     console.log(res, 'response');
     token.value = res.token
+    toast.add({title: 'Successfully logged in!'})
     navigateTo('/dashboard')
   } catch (e: any) {
     console.error(e)
+    toast.add({title: 'Error logging in!'})
   }
 }
 </script>
