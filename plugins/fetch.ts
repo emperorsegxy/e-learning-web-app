@@ -1,9 +1,12 @@
-export default defineNuxtPlugin((nuxtAApp) => {
+export default defineNuxtPlugin((nuxtApp) => {
     const runtimeConfig = useRuntimeConfig();
-    nuxtAApp.$fetch = $fetch.create({
+    nuxtApp.$fetch = $fetch.create({
         baseURL: runtimeConfig.public.baseUrl as string,
         onRequest: (req) => {
             console.log(req);
+        },
+        onRequestError: (err) => {
+            console.log(err);
         }
     })
 })
